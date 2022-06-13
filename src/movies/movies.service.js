@@ -12,7 +12,12 @@ function listShowing(){
     .groupBy("m.movie_id")
 }
 
+function read(movieId){
+    return knex("movies").select("*").where({ "movie_id": movieId }).first()
+}
+
 module.exports = {
     list,
-    listShowing
+    listShowing,
+    read
 }
