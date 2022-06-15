@@ -4,11 +4,11 @@ const asyncErrorBoundary = require("../errors/asyncErrorBoundaries")
 async function list(req, res, next){
     const { movieId } = req.params
     const theaters = await theatersService.list()
-    console.log(theaters)
 
+    // const results =  theaters.filter(movieId ? theater => theater.movie_id == movieId : ()=> true)
+    // console.log(results)
     res.json({ data: theaters.filter(movieId ? theater => theater.movie_id == movieId : ()=> true)})
     
-    // console.log(result)
     // res.json({ data: result })
     
 }
