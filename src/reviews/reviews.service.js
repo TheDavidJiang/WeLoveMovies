@@ -6,6 +6,13 @@ function list(){
     return knex("reviews").select("*")
 }
 
+function read(review_id){
+    return knex("reviews")
+    .select("*")
+    .where({ review_id })
+    .first()
+}
+
 const addCritic = mapProperties({
     "c:critic_id": "critic.critic_id",
     "c:preferred_name": "critic.preferred_name",
@@ -29,19 +36,31 @@ function readMoviesAndReviews(movie_id){
     .where({ "r.movie_id": movie_id})
     .then((reviews)=>reviews.map((review)=>addCritic(review)))
     // .then((reviews)=>reviews.map(addCritic)
-
 }
 
 async function update(updatedReview){
-    // const reviews = await reviewsService.list()
-    return knex("reviews")
+    return knex("reviews as r")
     .select("*")
-    .where({ review_id: updatedReview.review_id })
+    .where({ "review_id": updatedReview.review_id })
     .update(updatedReview, "*")
+}
+
+async function readCritic(critic_id){
+    return knex("critics")
+    .select("*")
+    .where({ "critic_id": critic_id })
+    .first()
+}
+
+function destroy(review_id){
+    return knex("reviews").where({ review_id }).del()
 }
 
 module.exports = {
     list,
+    read,
+    readCritic,
     readMoviesAndReviews,
-    update
+    update,
+    destroy
 }
