@@ -22,7 +22,7 @@ function movieExists(req, res, next){
             res.locals.movie = movie
             return next()
         }
-        next({ status: 404, message: `Movie does not exist!`})
+        next({ status: 404, message: `Movie cannot be found!`})
     })
     .catch(next)
 }
@@ -34,6 +34,7 @@ function read(req, res){
 }
 
 module.exports = {
+    movieExists,
     list: [asyncErrorBoundary(list), asyncErrorBoundary(listShowing)],
     read: [asyncErrorBoundary(movieExists), asyncErrorBoundary(read)],
     
