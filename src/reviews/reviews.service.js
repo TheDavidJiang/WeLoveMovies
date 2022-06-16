@@ -24,7 +24,6 @@ const addCritic = mapProperties({
 
 function readMoviesAndReviews(movie_id){
     return knex("reviews as r")
-    // .join("movies as m", "r.movie_id", "m.movie_id")
     .join("critics as c", "r.critic_id", "c.critic_id")
     .select("r.*",
     "c.critic_id as c:critic_id",
@@ -35,7 +34,6 @@ function readMoviesAndReviews(movie_id){
     "c.updated_at as c:updated_at",)
     .where({ "r.movie_id": movie_id})
     .then((reviews)=>reviews.map((review)=>addCritic(review)))
-    // .then((reviews)=>reviews.map(addCritic)
 }
 
 async function update(updatedReview){

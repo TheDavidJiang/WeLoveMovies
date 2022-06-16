@@ -28,8 +28,6 @@ function movieExists(req, res, next){
 }
 
 function read(req, res){
-    // const { movie: data} = res.locals
-    // res.json({ data })
     res.json({ data: res.locals.movie})
 }
 
